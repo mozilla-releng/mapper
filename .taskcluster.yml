@@ -143,7 +143,7 @@ tasks:
                   PROJECT_NAME: '${project_name}'
                   PUSH_DOCKER_IMAGE: '${push_docker_image}'
                   REPO_URL: '${REPO_URL}'
-                  SECRET_URL: 'http://taskcluster/secrets/v1/secret/project/releng/tooltool/deploy'
+                  SECRET_URL: 'http://taskcluster/secrets/v1/secret/project/releng/mapper/deploy'
                 command:
                   - sh
                   - -lxce
@@ -151,7 +151,7 @@ tasks:
                     cd /tmp &&
                     wget ${REPO_URL}/archive/${HEAD_REV}.tar.gz &&
                     tar zxf ${HEAD_REV}.tar.gz &&
-                    mv tooltool-${HEAD_REV} /src &&
+                    mv mapper-${HEAD_REV} /src &&
                     cd /src/${project_name} &&
                     ./docker.d/generate_version_json.sh &&
                     ./docker.d/build_image.sh /tmp/image.tar &&
@@ -167,7 +167,7 @@ tasks:
                 $if: 'push_docker_image == "0"'
                 then: []
                 else:
-                  - 'secrets:get:project/releng/tooltool/deploy'
+                  - 'secrets:get:project/releng/mapper/deploy'
               metadata:
                 $let:
                   description:
