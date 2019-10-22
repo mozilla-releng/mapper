@@ -14,7 +14,7 @@ tasks:
         api_setup: 'apt-get update && apt-get install -y postgresql &&'
       in:
         # [ <PROJECT NAME>, <PYTHON VERSION>, <SETUP COMMAND>,     <DOCKERHUB REPO>]
-        - ['api',           '37',             '${api_setup}',      'mozilla/releng-tooltool']
+        - ['api',           '37',             '${api_setup}',      'mozilla/releng-mapper']
     # -------------------------------------------------------------------------
 
     HEAD_REV:
