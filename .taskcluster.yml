@@ -101,7 +101,7 @@ tasks:
                       mv mapper-${HEAD_REV}/* /src/ &&
                       cd /src &&
                       pip install --user tox &&
-                      /src/.local/bin/tox -e ${project_name}-py${python_version}
+                      /src/.local/bin/tox -e py${python_version} codecov
                       "
               metadata:
                 name:
