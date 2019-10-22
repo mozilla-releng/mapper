@@ -1,0 +1,39 @@
+version: '3'
+services:
+  api:
+    build: api
+    ports:
+      - "8004:8004"
+    volumes:
+      # This doesn't quite work because the app has to be installed
+      # Maybe we should drop the volume mount and rely on rebuilding?
+      - ./api:/app
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8004
+      - APP_URL=https://localhost:8004
+      - APP_SETTINGS=/app/settings.py
+      - APP_CHANNEL=development
+      - DATABASE_URL=postgres://mapperuser:mapperpassword@db/mapperdb
+      - TASKCLUSTER_SECRET=$TASKCLUSTER_SECRET
+      - TASKCLUSTER_CLIENT_ID=$TASKCLUSTER_CLIENT_ID
+      - TASKCLUSTER_ACCESS_TOKEN=$TASKCLUSTER_ACCESS_TOKEN
+    depends_on:
+      - db
+
+  db:
+    image: postgres:11
+    volumes:
+      - dbstore:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=mapperuser
+      - POSTGRES_PASSWORD=mapperpassword
+      - POSTGRES_DB=mapperdb
+    healthcheck:
+      test: ["CMD-SHELL", "-c", "pg_isready -U mapperuser -d mapperdb"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  dbstore:
