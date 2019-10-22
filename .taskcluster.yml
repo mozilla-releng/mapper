@@ -98,7 +98,7 @@ tasks:
                       cd /tmp &&
                       wget ${REPO_URL}/archive/${HEAD_REV}.tar.gz &&
                       tar zxf ${HEAD_REV}.tar.gz &&
-                      mv tooltool-${HEAD_REV}/* /src/ &&
+                      mv mapper-${HEAD_REV}/* /src/ &&
                       cd /src &&
                       pip install --user tox &&
                       /src/.local/bin/tox -e ${project_name}-py${python_version}
