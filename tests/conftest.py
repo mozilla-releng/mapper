@@ -8,16 +8,15 @@ import pytest
 import backend_common
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def app():
-    '''Load mapper_api in test mode
-    '''
+    """Load mapper_api in test mode
+    """
     import mapper_api
 
-    config = backend_common.testing.get_app_config({
-        'SQLALCHEMY_DATABASE_URI': 'sqlite://',
-        'SQLALCHEMY_TRACK_MODIFICATIONS': False,
-    })
+    config = backend_common.testing.get_app_config(
+        {"SQLALCHEMY_DATABASE_URI": "sqlite://", "SQLALCHEMY_TRACK_MODIFICATIONS": False}
+    )
     app = mapper_api.create_app(config)
 
     with app.app_context():

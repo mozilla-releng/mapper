@@ -9,22 +9,24 @@ import backend_common.db
 
 
 class Project(backend_common.db.db.Model):
-    '''
+    """
     Object-relational mapping between python class Project
     and database table "projects"
-    '''
-    __tablename__ = 'releng_mapper_projects'
+    """
+
+    __tablename__ = "releng_mapper_projects"
 
     id = sa.Column(sa.Integer, primary_key=True)
     name = sa.Column(sa.String(255), nullable=False, unique=True)
 
 
 class Hash(backend_common.db.db.Model):
-    '''
+    """
     Object-relational mapping between python class Hash
     and database table "hashes"
-    '''
-    __tablename__ = 'releng_mapper_hashes'
+    """
+
+    __tablename__ = "releng_mapper_hashes"
 
     hg_changeset = sa.Column(sa.String(40), nullable=False)
     git_commit = sa.Column(sa.String(40), nullable=False)
@@ -37,23 +39,23 @@ class Hash(backend_common.db.db.Model):
     def as_json(self):
         return {
             n: getattr(self, n)
-            for n in ('git_commit', 'hg_changeset', 'date_added', 'project_name',)
+            for n in ("git_commit", "hg_changeset", "date_added", "project_name")
         }
 
     __table_args__ = (
         # TODO: (needs verification) all queries specifying a hash are for
         # (project, hash), so these aren't used
-        sa.Index('hg_changeset', 'hg_changeset'),
-        sa.Index('git_commit', 'git_commit'),
+        sa.Index("hg_changeset", "hg_changeset"),
+        sa.Index("git_commit", "git_commit"),
         # TODO: this index is a prefix of others and will never be used
-        sa.Index('project_id', 'project_id'),
-        sa.Index('project_id__date_added', 'project_id', 'date_added'),
-        sa.Index('project_id__hg_changeset', 'project_id', 'hg_changeset', unique=True),
-        sa.Index('project_id__git_commit', 'project_id', 'git_commit', unique=True),
+        sa.Index("project_id", "project_id"),
+        sa.Index("project_id__date_added", "project_id", "date_added"),
+        sa.Index("project_id__hg_changeset", "project_id", "hg_changeset", unique=True),
+        sa.Index("project_id__git_commit", "project_id", "git_commit", unique=True),
     )
 
     __mapper_args__ = {
         # tell the SQLAlchemy ORM about one of the unique indexes; it doesn't
         # matter which
-        'primary_key': [project_id, hg_changeset],
+        "primary_key": [project_id, hg_changeset]
     }

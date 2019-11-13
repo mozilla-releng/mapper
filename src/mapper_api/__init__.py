@@ -15,15 +15,8 @@ def create_app(config=None):
         project_name=mapper_api.config.PROJECT_NAME,
         app_name=mapper_api.config.APP_NAME,
         config=config,
-        extensions=[
-            'log',
-            'security',
-            'cors',
-            'api',
-            'auth',
-            'db',
-        ],
+        extensions=["log", "security", "cors", "api", "auth", "db"],
     )
     # TODO: add predefined api.yml
-    app.api.register(os.path.join(os.path.dirname(__file__), 'api.yml'))
+    app.api.register(os.path.join(os.path.dirname(__file__), "api.yml"))
     return app

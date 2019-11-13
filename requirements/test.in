@@ -11,7 +11,9 @@ Logbook
 SQLAlchemy
 Werkzeug
 aioamqp
+black
 boto
+check-manifest
 click
 codecov
 connexion[swagger-ui]
@@ -31,6 +33,7 @@ kombu
 mohawk<0.4,>=0.3.4
 mozdef-client
 pdbpp
+pip-compile-multi
 pytest
 pytest-cov
 python-dateutil<2.7.0,>=2.1
