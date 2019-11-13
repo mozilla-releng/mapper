@@ -81,8 +81,8 @@ tasks:
             # Run code linting and unit tests for each project 
             'run_tests == "1"':
               taskId: '${as_slugid(project_name + python_version)}'
-              provisionerId: 'aws-provisioner-v1'
-              workerType: 'github-worker'
+              provisionerId: 'releng-t'
+              workerType: 'linux'
               created: { $fromNow: '' }
               deadline: { $fromNow: '4 hours' }
               payload:
@@ -120,8 +120,8 @@ tasks:
               taskId: '${as_slugid(project_name + "docker_build_and_push")}'
               dependencies:
                 - '${as_slugid(project_name + python_version)}'
-              provisionerId: 'aws-provisioner-v1'
-              workerType: 'github-worker'
+              provisionerId: 'releng-t'
+              workerType: 'linux'
               created: { $fromNow: '' }
               deadline: { $fromNow: '24 hours' }
               payload:
